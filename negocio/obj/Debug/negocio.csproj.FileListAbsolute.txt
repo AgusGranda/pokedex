@@ -1,0 +1,18 @@
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\bin\Debug\negocio.dll
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\bin\Debug\negocio.pdb
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\bin\Debug\dominio.dll
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\bin\Debug\dominio.pdb
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\obj\Debug\negocio.csproj.AssemblyReference.cache
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\obj\Debug\negocio.csproj.CoreCompileInputs.cache
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\obj\Debug\negocio.csproj.CopyComplete
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\obj\Debug\negocio.dll
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\negocio\obj\Debug\negocio.pdb
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\bin\Debug\negocio.dll
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\bin\Debug\negocio.pdb
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\bin\Debug\dominio.dll
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\bin\Debug\dominio.pdb
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\obj\Debug\negocio.csproj.AssemblyReference.cache
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\obj\Debug\negocio.csproj.CoreCompileInputs.cache
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\obj\Debug\negocio.csproj.CopyComplete
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\obj\Debug\negocio.dll
+F:\Programacion\C#\Nivel 3\pokedex-web\negocio\obj\Debug\negocio.pdb

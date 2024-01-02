@@ -1,0 +1,12 @@
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\bin\Debug\dominio.dll
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\bin\Debug\dominio.pdb
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\obj\Debug\dominio.dll
+F:\Programacion\C#\Nivel2\Ado.net\Practica-HastaM7-2\dominio\obj\Debug\dominio.pdb
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\bin\Debug\dominio.dll
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\bin\Debug\dominio.pdb
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\obj\Debug\dominio.dll
+F:\Programacion\C#\Nivel 3\pokedex-web\dominio\obj\Debug\dominio.pdb
