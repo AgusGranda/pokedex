@@ -12,50 +12,50 @@ namespace negocio
     {
         public List<Pokemon> listar()
         {
-			List<Pokemon> lista = new List<Pokemon>();
-			AccesoDatos data = new AccesoDatos();
+            List<Pokemon> lista = new List<Pokemon>();
+            AccesoDatos data = new AccesoDatos();
 
-			try
-			{
+            try
+            {
 
-				data.setearConsulta("select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where Activo = 1");
-				data.ejecutarLectura();
+                data.setearConsulta("select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where Activo = 1");
+                data.ejecutarLectura();
 
-				while (data.Lector.Read())
-				{
-					Pokemon aux = new Pokemon();
+                while (data.Lector.Read())
+                {
+                    Pokemon aux = new Pokemon();
 
-					aux.Id = (int)data.Lector["Id"];
-					aux.Numero = (int)data.Lector["Numero"];
-					aux.Nombre = (string)data.Lector["Nombre"];
-					aux.Descripcion = (string)data.Lector["Descripcion"];
+                    aux.Id = (int)data.Lector["Id"];
+                    aux.Numero = (int)data.Lector["Numero"];
+                    aux.Nombre = (string)data.Lector["Nombre"];
+                    aux.Descripcion = (string)data.Lector["Descripcion"];
 
-					if (!(data.Lector["UrlImagen"] is DBNull))
-						aux.UrlImagen = (string)data.Lector["UrlImagen"];
+                    if (!(data.Lector["UrlImagen"] is DBNull))
+                        aux.UrlImagen = (string)data.Lector["UrlImagen"];
 
-					aux.Tipo = new Elemento();
-					aux.Tipo.Id = (int)data.Lector["IdTipo"];
-					aux.Tipo.Descripcion = (string)data.Lector["Tipo"];
-					aux.Debilidad = new Elemento();
-					aux.Debilidad.Id = (int)data.Lector["IdDebilidad"];
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.Id = (int)data.Lector["IdTipo"];
+                    aux.Tipo.Descripcion = (string)data.Lector["Tipo"];
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.Id = (int)data.Lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)data.Lector["Debilidad"];
 
 
                     lista.Add(aux);
-				}
+                }
 
 
-				return lista;
-			}
-			catch (Exception ex)
-			{
+                return lista;
+            }
+            catch (Exception ex)
+            {
 
-				throw ex;
-			}
-			finally
-			{
-				data.cerrarConexion();
-			}
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
         }
 
         public List<Pokemon> listarConSp()
@@ -111,80 +111,142 @@ namespace negocio
         }
 
         public void agregar(Pokemon poke)
-		{
-			AccesoDatos data = new AccesoDatos();
+        {
+            AccesoDatos data = new AccesoDatos();
 
-			try
-			{
-				data.setearConsulta("insert into POKEMONS (Numero,Nombre,Descripcion,IdTipo,IdDebilidad,UrlImagen,Activo) values("+poke.Numero+",'"+poke.Nombre+"','"+poke.Descripcion+"',@IdTipo,@IdDebilidad,@UrlImagen,1)");
-				data.cargarParametros("@IdTipo",poke.Tipo.Id);
-				data.cargarParametros("@IdDebilidad", poke.Debilidad.Id);
-				data.cargarParametros("@UrlImagen", poke.UrlImagen);
-				data.ejecutarAccion();
-			}
-			catch (Exception ex)
-			{
+            try
+            {
+                data.setearConsulta("insert into POKEMONS (Numero,Nombre,Descripcion,IdTipo,IdDebilidad,UrlImagen,Activo) values(" + poke.Numero + ",'" + poke.Nombre + "','" + poke.Descripcion + "',@IdTipo,@IdDebilidad,@UrlImagen,1)");
+                data.cargarParametros("@IdTipo", poke.Tipo.Id);
+                data.cargarParametros("@IdDebilidad", poke.Debilidad.Id);
+                data.cargarParametros("@UrlImagen", poke.UrlImagen);
+                data.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
 
-				throw ex;
-			}
-			finally
-			{
-				data.cerrarConexion();	
-			}
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
 
-		}
+        }
 
-		public void modificar(Pokemon poke)
-		{
+        public void agregarConSp(Pokemon poke)
+        {
+            AccesoDatos data = new AccesoDatos();
 
-			AccesoDatos data = new AccesoDatos();	
+            try
+            {
+                data.setearProcedure("storedAltaPokemon");
 
-			try
-			{
-				// editar consulta sql
-				data.setearConsulta("update POKEMONS set Numero=@numero , Nombre =@nombre, Descripcion=@descripcion, UrlImagen=@img,IdTipo=@tipo , IdDebilidad=@debilidad  where Id=@id ");
-				data.cargarParametros("@numero", poke.Numero);
-                data.cargarParametros("@nombre",poke.Nombre);
-                data.cargarParametros("@descripcion" , poke.Descripcion);
-                data.cargarParametros("@img",poke.UrlImagen);
-				data.cargarParametros("@tipo", poke.Tipo.Id);
-				data.cargarParametros("@debilidad", poke.Debilidad.Id);
+                data.cargarParametros("@numero", poke.Numero);
+                data.cargarParametros("@nombre", poke.Nombre);
+                data.cargarParametros("@descripcion", poke.Descripcion);
+                data.cargarParametros("@imagen", poke.UrlImagen);
+                data.cargarParametros("@idTipo", poke.Tipo.Id);
+                data.cargarParametros("@idDebilidad", poke.Debilidad.Id);
+
+                data.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
+
+        }
+
+        public void modificar(Pokemon poke)
+        {
+
+            AccesoDatos data = new AccesoDatos();
+
+            try
+            {
+                // editar consulta sql
+                data.setearConsulta("update POKEMONS set Numero=@numero , Nombre =@nombre, Descripcion=@descripcion, UrlImagen=@img,IdTipo=@tipo , IdDebilidad=@debilidad  where Id=@id ");
+                data.cargarParametros("@numero", poke.Numero);
+                data.cargarParametros("@nombre", poke.Nombre);
+                data.cargarParametros("@descripcion", poke.Descripcion);
+                data.cargarParametros("@img", poke.UrlImagen);
+                data.cargarParametros("@tipo", poke.Tipo.Id);
+                data.cargarParametros("@debilidad", poke.Debilidad.Id);
                 data.cargarParametros("@id", poke.Id);
                 data.ejecutarAccion();
-			}
-			catch (Exception ex)
-			{
+            }
+            catch (Exception ex)
+            {
 
-				throw ex;
-			}
-			finally
-			{
-				data.cerrarConexion();
-			}
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
 
-		}
+        }
 
-		public void eliminar(int id)
-		{
+        public void modificarConSp(Pokemon poke)
+        {
+            AccesoDatos data = new AccesoDatos();
+
+            try
+            {
+                data.setearProcedure("storedModificarPokemon");
+
+                data.cargarParametros("@id", poke.Id);
+                data.cargarParametros("@numero",poke.Numero);
+                data.cargarParametros("@nombre",poke.Nombre);
+                data.cargarParametros("@descripcion",poke.Descripcion);
+                data.cargarParametros("@img",poke.UrlImagen);
+                data.cargarParametros("@tipo",poke.Tipo.Id);
+                data.cargarParametros("@debilidad", poke.Debilidad.Id);
+
+                data.ejecutarAccion();
 
 
-			try
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
+
+
+        }
+
+        public void eliminar(int id)
+        {
+
+
+            try
             {
                 AccesoDatos data = new AccesoDatos();
                 data.setearConsulta("delete from POKEMONS where id=@Id");
-				data.cargarParametros("@Id", id);
-				data.ejecutarAccion();
+                data.cargarParametros("@Id", id);
+                data.ejecutarAccion();
 
-			}
-			catch (Exception ex)
-			{
+            }
+            catch (Exception ex)
+            {
 
-				throw ex;
-			}
-		}
+                throw ex;
+            }
+        }
 
-		public void eliminacionLogica(int id)
-		{
+        public void eliminacionLogica(int id)
+        {
             try
             {
                 AccesoDatos data = new AccesoDatos();
@@ -202,15 +264,15 @@ namespace negocio
         }
 
 
-		public List<Pokemon> filtrar(string campo, string subcampo, string filtro)
-		{
-			List<Pokemon> listaFiltrada = new List<Pokemon>();
-			AccesoDatos datos = new AccesoDatos();
+        public List<Pokemon> filtrar(string campo, string subcampo, string filtro)
+        {
+            List<Pokemon> listaFiltrada = new List<Pokemon>();
+            AccesoDatos datos = new AccesoDatos();
 
-			try
-			{
+            try
+            {
 
-				string consulta = "select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where Activo = 1 And ";
+                string consulta = "select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where Activo = 1 And ";
 
                 if (campo == "Número")
                 {
@@ -283,13 +345,57 @@ namespace negocio
                 return listaFiltrada;
 
             }
-			catch (Exception ex)
-			{
+            catch (Exception ex)
+            {
 
-				throw ex;
-			}
+                throw ex;
+            }
 
-		}
+        }
+
+        public Pokemon filtrarPorId(int id)
+        {
+
+            AccesoDatos data = new AccesoDatos();
+            Pokemon pokemon = new Pokemon();
+
+            try
+            {
+
+                data.setearProcedure("storedFiltoID");
+                data.cargarParametros("@id", id);
+                data.ejecutarLectura();
+
+                while ( data.Lector.Read()) {
+
+
+                    pokemon.Id = (int)data.Lector["Id"];
+                    pokemon.Numero = (int)data.Lector["Numero"];
+                    pokemon.Nombre = (string)data.Lector["Nombre"];
+                    pokemon.Descripcion = (string)data.Lector["Descripcion"];
+                    pokemon.UrlImagen = (string)data.Lector["UrlImagen"];
+
+                    pokemon.Tipo = new Elemento();
+                    pokemon.Tipo.Id = (int)data.Lector["IdTipo"];
+                    pokemon.Debilidad = new Elemento();
+                    pokemon.Debilidad.Id = (int)data.Lector["IdDebilidad"];
+                }
+          
+                return pokemon;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.cerrarConexion();
+            }
+
+        }
+
     }
 
 

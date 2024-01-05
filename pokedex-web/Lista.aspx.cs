@@ -12,12 +12,13 @@ namespace pokedex_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            PokemonNegocio negocio = new PokemonNegocio();
+           
 
-            dgvLista.DataSource = negocio.listarConSp();
-            dgvLista.DataBind();
+                PokemonNegocio negocio = new PokemonNegocio();
 
-            
+                dgvLista.DataSource = negocio.listarConSp();
+                dgvLista.DataBind();
+           
 
         }
 

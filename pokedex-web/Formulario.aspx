@@ -4,6 +4,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+
+    <% // para poder usar el updatePanel %>
+    <asp:ScriptManager ID="ScriptManager1" runat="server" ></asp:ScriptManager>
+
+
     <div class="row">
 
         <div class="col-6">
@@ -20,14 +25,6 @@
                 <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="mb-3">
-                <label for="txtDescripcion" class="form-label">Descripcion</label>
-                <asp:TextBox ID="txtDescripcion" TextMode="MultiLine" CssClass="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="mb-3">
-                <label for="txtImagen" class="form-label">Imagen</label>
-                <asp:TextBox ID="txtImagen" CssClass="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="mb-3">
                 <label for="ddlTipo" class="form-label">Tipo</label>
                 <asp:DropDownList ID="ddlTipo" CssClass="form-control" runat="server"></asp:DropDownList>
             </div>
@@ -35,10 +32,28 @@
                 <label for="ddlDebilidad" class="form-label">Debilidad</label>
                 <asp:DropDownList ID="ddlDebilidad" CssClass="form-control" runat="server"></asp:DropDownList>
             </div>
-            <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" />
-            <a href="Lista.aspx" Class="btn btn-secondary">Cancelar</a>
+            <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" OnClick="btnAceptar_Click" />
+            <a href="Lista.aspx" class="btn btn-secondary">Cancelar</a>
         </div>
-        
+
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="txtDescripcion" class="form-label">Descripcion</label>
+                <asp:TextBox ID="txtDescripcion" TextMode="MultiLine" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <div class="mb-3">
+                        <label for="txtImagen" class="form-label">Imagen</label>
+                        <asp:TextBox ID="txtImagen" CssClass="form-control" runat="server" AutoPostBack="true" OnTextChanged="txtImagen_TextChanged" ></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                        <img src="<%: urlImagen %>" alt="Alternate Text" width="50%" />
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
     </div>
 
 
