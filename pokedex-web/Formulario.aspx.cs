@@ -40,6 +40,7 @@ namespace pokedex_web
                 PokemonNegocio negocio = new PokemonNegocio();
                 Pokemon seleccionado = negocio.filtrarPorId(id);
 
+                Session.Add("PokemonSeleccionado", seleccionado);
 
                 txtId.Text = seleccionado.Id.ToString();
                 txtNombre.Text = seleccionado.Nombre;
@@ -49,6 +50,13 @@ namespace pokedex_web
                 ddlTipo.SelectedValue = seleccionado.Tipo.Id.ToString();
                 ddlDebilidad.SelectedValue = seleccionado.Debilidad.Id.ToString();
                 txtImagen_TextChanged(sender, e);
+
+
+                if (!seleccionado.Activo)
+                    btnEliminarLogico.Text = "Recuperar";
+
+
+
             }
 
 
@@ -79,7 +87,7 @@ namespace pokedex_web
                 nuevo.Tipo.Id = int.Parse(ddlTipo.SelectedValue);
 
 
-                if(Request.QueryString["id"] == null)
+                if (Request.QueryString["id"] == null)
                     negocio.agregarConSp(nuevo);
                 else
                 {
@@ -91,11 +99,36 @@ namespace pokedex_web
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 throw ex;
             }
+        }
+
+        protected void btnEliminarLogico_Click(object sender, EventArgs e)
+        {
+            string boton = btnEliminarLogico.Text;
+
+
+            PokemonNegocio negocio = new PokemonNegocio();
+            Pokemon seleccionado = (Pokemon)Session["PokemonSeleccionado"];
+
+            try
+            {
+                negocio.eliminacionLogica(seleccionado.Id, !seleccionado.Activo);
+
+                Response.Redirect("Lista.aspx", false);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+
+
         }
     }
 }

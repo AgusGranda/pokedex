@@ -84,6 +84,7 @@ namespace negocio
 
                     if (!(data.Lector["UrlImagen"] is DBNull))
                         aux.UrlImagen = (string)data.Lector["UrlImagen"];
+                    aux.Activo = (bool)data.Lector["Activo"];
 
                     aux.Tipo = new Elemento();
                     aux.Tipo.Id = (int)data.Lector["IdTipo"];
@@ -245,13 +246,15 @@ namespace negocio
             }
         }
 
-        public void eliminacionLogica(int id)
+        public void eliminacionLogica(int id , bool accion)
         {
             try
             {
                 AccesoDatos data = new AccesoDatos();
-                data.setearConsulta("update POKEMONS set Activo=0 where id=@Id");
-                data.cargarParametros("@Id", id);
+
+                data.setearProcedure("storedEliminacionLogica");
+                data.cargarParametros("@id", id);
+                data.cargarParametros("@activo", accion);
                 data.ejecutarAccion();
 
             }
@@ -366,7 +369,8 @@ namespace negocio
                 data.cargarParametros("@id", id);
                 data.ejecutarLectura();
 
-                while ( data.Lector.Read()) {
+                while ( data.Lector.Read()) 
+                {
 
 
                     pokemon.Id = (int)data.Lector["Id"];
@@ -374,7 +378,7 @@ namespace negocio
                     pokemon.Nombre = (string)data.Lector["Nombre"];
                     pokemon.Descripcion = (string)data.Lector["Descripcion"];
                     pokemon.UrlImagen = (string)data.Lector["UrlImagen"];
-
+                    pokemon.Activo = (bool)data.Lector["Activo"];
                     pokemon.Tipo = new Elemento();
                     pokemon.Tipo.Id = (int)data.Lector["IdTipo"];
                     pokemon.Debilidad = new Elemento();

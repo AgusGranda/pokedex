@@ -5,8 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <% // para poder usar el updatePanel %>
-    <asp:ScriptManager ID="ScriptManager1" runat="server" ></asp:ScriptManager>
+    <%// para poder usar el updatePanel %>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
 
     <div class="row">
@@ -32,8 +32,16 @@
                 <label for="ddlDebilidad" class="form-label">Debilidad</label>
                 <asp:DropDownList ID="ddlDebilidad" CssClass="form-control" runat="server"></asp:DropDownList>
             </div>
-            <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" OnClick="btnAceptar_Click" />
-            <a href="Lista.aspx" class="btn btn-secondary">Cancelar</a>
+            <div class="mb-3">
+                <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" OnClick="btnAceptar_Click" />
+                <a href="Lista.aspx" class="btn btn-secondary">Cancelar</a>
+
+            </div>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <asp:Button ID="btnEliminarLogico" runat="server" CssClass="btn btn-danger" Text="Eliminar" OnClick="btnEliminarLogico_Click" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
 
         <div class="col-6">
@@ -45,10 +53,10 @@
                 <ContentTemplate>
                     <div class="mb-3">
                         <label for="txtImagen" class="form-label">Imagen</label>
-                        <asp:TextBox ID="txtImagen" CssClass="form-control" runat="server" AutoPostBack="true" OnTextChanged="txtImagen_TextChanged" ></asp:TextBox>
+                        <asp:TextBox ID="txtImagen" CssClass="form-control" runat="server" AutoPostBack="true" OnTextChanged="txtImagen_TextChanged"></asp:TextBox>
                     </div>
                     <div class="mb-3">
-                        <img src="<%: urlImagen %>" alt="Alternate Text" width="50%" />
+                        <img src="<%: urlImagen %>" alt="Pokemon Img" width="50%" />
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
