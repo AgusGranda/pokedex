@@ -108,8 +108,6 @@ namespace pokedex_web
 
         protected void btnEliminarLogico_Click(object sender, EventArgs e)
         {
-            string boton = btnEliminarLogico.Text;
-
 
             PokemonNegocio negocio = new PokemonNegocio();
             Pokemon seleccionado = (Pokemon)Session["PokemonSeleccionado"];

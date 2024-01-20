@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using dominio;
 using negocio;
 
 namespace pokedex_web
@@ -12,13 +14,23 @@ namespace pokedex_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (Session["usuario"] == null )
+            {
+                Response.Redirect("Login.aspx");
+            }
 
-                PokemonNegocio negocio = new PokemonNegocio();
+            
 
-                dgvLista.DataSource = negocio.listarConSp();
-                dgvLista.DataBind();
-           
+
+            PokemonNegocio negocio = new PokemonNegocio();
+            Session.Add("Lista", negocio.listarConSp());
+            dgvLista.DataSource = Session["Lista"];
+            dgvLista.DataBind();
+
+            filtroAvanzado();
+
+
+
 
         }
 
@@ -32,6 +44,70 @@ namespace pokedex_web
         {
             dgvLista.PageIndex = e.NewPageIndex;
             dgvLista.DataBind();
+        }
+
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Pokemon> lista = (List<Pokemon>)Session["Lista"];
+            List<Pokemon> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+            dgvLista.DataSource = listaFiltrada;
+            dgvLista.DataBind();
+
+        }
+
+
+        protected void filtroAvanzado()
+        {
+            if (!IsPostBack)
+            {
+                ddlCriterio.Items.Add("Nombre");
+                ddlCriterio.Items.Add("Numero");
+                ddlCriterio.Items.Add("Tipo");
+            }
+            if (ddlCriterio.SelectedValue.ToString() == "Nombre" || ddlCriterio.SelectedValue.ToString() == "Tipo")
+            {
+                ddlSubcriterio.Items.Clear();
+                ddlSubcriterio.Items.Add("Contiene");
+                ddlSubcriterio.Items.Add("Comienza con");
+                ddlSubcriterio.Items.Add("Termina con");
+
+            }
+            else if (ddlCriterio.SelectedValue.ToString() == "Numero")
+            {
+                ddlSubcriterio.Items.Clear();
+                ddlSubcriterio.Items.Add("Mayor a");
+                ddlSubcriterio.Items.Add("Menor a");
+                ddlSubcriterio.Items.Add("Igual a");
+            }
+
+
+
+        }
+
+        protected void btnBuscarAvanzado_Click(object sender, EventArgs e)
+        {
+            PokemonNegocio negocio = new PokemonNegocio();
+
+            string criterio = ddlCriterio.SelectedValue.ToString();
+            string subCriterio = ddlSubcriterio.SelectedValue.ToString();
+            string filtro = txtFiltroAvanzado.Text;
+            bool activo = chActivo.Checked;
+
+            try
+            {
+                List<Pokemon> listaFiltrada = negocio.filtrar(criterio, subCriterio, filtro, activo);
+                dgvLista.DataSource = listaFiltrada;
+                dgvLista.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
         }
     }
 }

@@ -267,7 +267,7 @@ namespace negocio
         }
 
 
-        public List<Pokemon> filtrar(string campo, string subcampo, string filtro)
+        public List<Pokemon> filtrar(string campo, string subcampo, string filtro, bool activo)
         {
             List<Pokemon> listaFiltrada = new List<Pokemon>();
             AccesoDatos datos = new AccesoDatos();
@@ -275,9 +275,9 @@ namespace negocio
             try
             {
 
-                string consulta = "select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where Activo = 1 And ";
+                string consulta = "select POKEMONS.Id,Numero,Nombre,POKEMONS.Descripcion,UrlImagen,Activo,Tipo.Descripcion Tipo,Debilidad.Descripcion Debilidad, POKEMONS.IdTipo, POKEMONS.IdDebilidad from POKEMONS inner join ELEMENTOS as Tipo on Tipo.id = IdTipo inner join ELEMENTOS as Debilidad on Debilidad.id = IdDebilidad where ";
 
-                if (campo == "Número")
+                if (campo == "Numero")
                 {
                     switch (subcampo)
                     {
@@ -312,15 +312,23 @@ namespace negocio
                     switch (subcampo)
                     {
                         case "Comienza con":
-                            consulta += "P.Descripcion like '" + filtro + "%' ";
+                            consulta += "Tipo.Descripcion like '" + filtro + "%' ";
                             break;
                         case "Termina con":
-                            consulta += "P.Descripcion like '%" + filtro + "'";
+                            consulta += "Tipo.Descripcion like '%" + filtro + "'";
                             break;
                         default:
-                            consulta += "P.Descripcion like '%" + filtro + "%'";
+                            consulta += "Tipo.Descripcion like '%" + filtro + "%'";
                             break;
                     }
+                }
+                if (activo)
+                {
+                    consulta += "and Activo = "+ 1;
+                }
+                else
+                {
+                    consulta += "and Activo = " + 0;
                 }
 
                 datos.setearConsulta(consulta);
