@@ -21,11 +21,8 @@
     </div>
     <div class="row">
         <div class="col-4"></div>
-        <div class="col-2">
+        <div class="col-4">
             <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
-        </div>
-        <div class="col-2">
-            <asp:Button ID="btnRegistrarse" runat="server" Text="Registrarme"  CssClass="btn btn-primary"/>
         </div>
         <div class="col-4"></div>
     </div>

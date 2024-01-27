@@ -26,12 +26,28 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="Lista.aspx">Lista Pokemons</a>
                             </li>
-
+                            <li>
+                                <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="Perfil.aspx">Mi Perfil</a>
+                            </li>
                         </ul>
-
                         <ul class="navbar-nav mb-3 mb-lg-0">
+                            <%if (!(negocio.Seguridad.sesionActiva(Session["usuario"]))){ %>
                             <li class="nav-item">
                                 <a class="nav-link" href="Login.aspx">Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="Registro.aspx">Registro</a>
+                            </li>
+                            <%} else{  %>
+                            <li class="nav-item">
+                                <asp:Button class="nav-link" ID="btnCerrarSession" runat="server" Text="Cerrar Sesion" OnClick="btnCerrarSession_Click" />
+                            </li>
+                            <% }%>
+                            <li>
+                                <asp:Image ID="imgPerfil" style="height:40px; width:40px; border-radius:50%" runat="server" />
                             </li>
                         </ul>
                     </div>

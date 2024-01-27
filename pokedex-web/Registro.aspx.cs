@@ -9,37 +9,33 @@ using dominio;
 
 namespace pokedex_web
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Registro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void btnRegistro_Click(object sender, EventArgs e)
         {
+            UsuarioNegocio negocio = new UsuarioNegocio();
             try
             {
-                UsuarioNegocio negocio = new UsuarioNegocio();
-
                 string email = txtEmail.Text;
                 string pass = txtPass.Text;
 
-                Usuario aux = new Usuario(email,pass);
- 
-                if (negocio.loguear(aux))
-                {
-                    Session.Add("usuario",aux);
-                    Response.Redirect("Default.aspx");
+                Usuario user = new Usuario(email,pass);
 
-                }
+                negocio.registrar(user);
 
+                Response.Redirect("Default.aspx");
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+            
         }
     }
 }

@@ -13,7 +13,7 @@ namespace negocio
         {
 			List<Elemento> lista = new List<Elemento>();
 			AccesoDatos data = new AccesoDatos();	
-
+			
 			try
 			{
 				data.setearConsulta("select id, Descripcion from ELEMENTOS");

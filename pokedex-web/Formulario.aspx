@@ -56,7 +56,7 @@
                         <asp:TextBox ID="txtImagen" CssClass="form-control" runat="server" AutoPostBack="true" OnTextChanged="txtImagen_TextChanged"></asp:TextBox>
                     </div>
                     <div class="mb-3">
-                        <img src="<%: urlImagen %>" alt="Pokemon Img" width="50%" />
+                        <img src="<%: urlImagen %>" alt="Pokemon Img" style="width:50%" />
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

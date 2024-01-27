@@ -14,14 +14,12 @@ namespace pokedex_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null )
+            if (!(Seguridad.sesionActiva(Session["usuario"]) && Seguridad.sesionAdmin(Session["usuario"])))
             {
-                Response.Redirect("Login.aspx");
+                Session.Add("error", "No tienes permisos de administrador");
+                Response.Redirect("Error.aspx");
             }
-
-            
-
-
+          
             PokemonNegocio negocio = new PokemonNegocio();
             Session.Add("Lista", negocio.listarConSp());
             dgvLista.DataSource = Session["Lista"];
