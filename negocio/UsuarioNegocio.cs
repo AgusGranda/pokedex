@@ -60,7 +60,7 @@ namespace negocio
                     if (!(datos.Lector["Nombre"] is DBNull))
                         usuario.Nombre = (string)datos.Lector["Nombre"];
 
-                    if (datos.Lector["Apellido"] is DBNull)
+                    if (!(datos.Lector["Apellido"] is DBNull))
                         usuario.Apellido = (string)datos.Lector["Apellido"];
 
                     return true;
